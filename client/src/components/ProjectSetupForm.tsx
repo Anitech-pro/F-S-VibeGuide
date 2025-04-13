@@ -1,54 +1,52 @@
+
+import { useState } from "react";
 import { useWizard } from "@/context/WizardContext";
+import { useLocation } from "wouter";
 
-export default function ProjectSetupForm() {
-  const { projectConfig, updateProjectConfig } = useWizard();
+export function ProjectSetupForm() {
+  const [projectName, setProjectName] = useState("");
+  const [description, setDescription] = useState("");
+  const { updateProjectConfig } = useWizard();
+  const [, setLocation] = useLocation();
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateProjectConfig({ name: e.target.value });
-  };
-
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateProjectConfig({ description: e.target.value });
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateProjectConfig({ 
+      name: projectName,
+      description: description 
+    });
+    setLocation("/frontend");
   };
 
   return (
-    <div className="space-y-6 mb-8">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-white">Project Basics</h2>
-        <span className="text-sm text-purple-400">Step 1 of 4</span>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <input
+          type="text"
+          value={projectName}
+          onChange={(e) => setProjectName(e.target.value)}
+          placeholder="Enter Your Project Name"
+          className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          required
+        />
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="project-name" className="block text-sm font-medium text-gray-300 mb-1">
-            Project Name
-          </label>
-          <input 
-            type="text" 
-            id="project-name" 
-            name="project-name" 
-            placeholder="My Awesome App" 
-            value={projectConfig.name}
-            onChange={handleNameChange}
-            className="w-full bg-gray-900 bg-opacity-50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-purple-400 focus:border-transparent" 
-          />
-        </div>
-        
-        <div>
-          <label htmlFor="project-description" className="block text-sm font-medium text-gray-300 mb-1">
-            Short Description
-          </label>
-          <input 
-            type="text" 
-            id="project-description" 
-            name="project-description" 
-            placeholder="A web app that helps developers..." 
-            value={projectConfig.description}
-            onChange={handleDescriptionChange}
-            className="w-full bg-gray-900 bg-opacity-50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-purple-400 focus:border-transparent" 
-          />
-        </div>
+      <div>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Briefly describe your project..."
+          className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[120px]"
+          required
+        />
       </div>
-    </div>
+
+      <button
+        type="submit"
+        className="w-full py-3 px-4 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors"
+      >
+        Start Building →
+      </button>
+    </form>
   );
 }
