@@ -13,48 +13,56 @@ export default function WizardNavigation({
   onNext
 }: WizardNavigationProps) {
   const { prevStep, nextStep, currentStep, projectConfig } = useWizard();
-  const [, setLocation] = useLocation();
+  const [, navigate] = useLocation();
   
   const handleNext = () => {
     if (onNext) {
       onNext();
-    } else {
-      nextStep();
-      
-      switch (currentStep) {
-        case "project-type":
-          setLocation("/frontend");
-          break;
-        case "frontend":
-          setLocation("/backend");
-          break;
-        case "backend":
-          setLocation("/infrastructure");
-          break;
-        case "infrastructure":
-          setLocation("/summary");
-          break;
-        default:
-          break;
-      }
+      return;
+    }
+    
+    nextStep();
+    
+    // Log current step for debugging
+    console.log("Current step:", currentStep);
+    console.log("Navigating to next page");
+    
+    switch (currentStep) {
+      case "project-type":
+        navigate("/frontend");
+        break;
+      case "frontend":
+        navigate("/backend");
+        break;
+      case "backend":
+        navigate("/infrastructure");
+        break;
+      case "infrastructure":
+        navigate("/summary");
+        break;
+      default:
+        break;
     }
   };
   
   const handleBack = () => {
     prevStep();
     
+    // Log for debugging
+    console.log("Going back from:", currentStep);
+    
     switch (currentStep) {
       case "frontend":
-        setLocation("/");
+        navigate("/");
         break;
       case "backend":
-        setLocation("/frontend");
+        navigate("/frontend");
         break;
       case "infrastructure":
-        setLocation("/backend");
+        navigate("/backend");
         break;
       case "summary":
-        setLocation("/infrastructure");
+        navigate("/infrastructure");
         break;
       default:
         break;
