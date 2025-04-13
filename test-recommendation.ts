@@ -1,4 +1,4 @@
-import { storage } from './server/storage.ts';
+import { storage } from './server/storage.js';
 
 async function testRecommendationEngine() {
   try {
