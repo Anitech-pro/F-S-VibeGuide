@@ -63,19 +63,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Tech stacks routes
-  app.get("/api/tech-stacks", async (req, res) => {
+  // Technologies routes
+  app.get("/api/technologies", async (req, res) => {
     try {
       const { category } = req.query;
-      let techStacks;
+      let technologies;
       
       if (category) {
-        techStacks = await storage.getTechStacksByCategory(category as string);
+        technologies = await storage.getTechnologiesByCategory(category as string);
       } else {
-        techStacks = await storage.getAllTechStacks();
+        technologies = await storage.getAllTechnologies();
       }
       
-      res.status(200).json(techStacks);
+      res.status(200).json(technologies);
+    } catch (error) {
+      res.status(500).json({ message: (error as Error).message });
+    }
+  });
+  
+  // Contextualized technology recommendations
+  app.post("/api/technologies/context", async (req, res) => {
+    try {
+      const { category, selectedTech } = req.body;
+      
+      if (!category) {
+        return res.status(400).json({ message: "Category is required" });
+      }
+      
+      const technologies = await storage.getTechWithContext(category, selectedTech || {});
+      res.status(200).json(technologies);
+    } catch (error) {
+      res.status(500).json({ message: (error as Error).message });
+    }
+  });
+  
+  // Tech compatibility routes
+  app.get("/api/compatibility/:techId", async (req, res) => {
+    try {
+      const techId = parseInt(req.params.techId);
+      const compatibleTechs = await storage.getCompatibleTechnologies(techId);
+      res.status(200).json(compatibleTechs);
     } catch (error) {
       res.status(500).json({ message: (error as Error).message });
     }
