@@ -44,10 +44,10 @@ export default function ProgressBar() {
   const { currentStep } = useWizard();
 
   const steps: { step: WizardStep; label: string }[] = [
-    { step: "project-type", label: "Project Type" },
-    { step: "frontend", label: "Frontend" },
-    { step: "backend", label: "Backend" },
-    { step: "infrastructure", label: "Infrastructure" }
+    { step: "project-type", label: "Project Registration" },
+    { step: "frontend", label: "Stack Selection" },
+    { step: "backend", label: "Integration" },
+    { step: "infrastructure", label: "Build & Deploy" }
   ];
 
   const getCurrentStepIndex = () => {
@@ -72,9 +72,8 @@ export default function ProgressBar() {
     <div className="bg-gray-900 bg-opacity-50 px-6 py-4 border-b border-gray-700">
       <div className="flex items-center justify-between max-w-3xl mx-auto">
         {steps.map((step, index) => (
-          <>
-            <StepIndicator 
-              key={step.step}
+          <React.Fragment key={step.step}>
+            <StepIndicator
               step={index + 1}
               label={step.label}
               status={getStepStatus(index)}
