@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Stack Vibe Guide - Choose Your Path</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Inter font globally */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom gradient for background */
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%);
+        }
+        /* Custom focus ring color */
+        input[type="checkbox"]:focus, input[type="radio"]:focus {
+            --tw-ring-color: #a78bfa; /* purple-400 */
+        }
+        input[type="checkbox"], input[type="radio"] {
+            color: #8b5cf6; /* purple-500 */
+            flex-shrink: 0; /* Prevent shrinking in flex layouts */
+        }
+        /* Style for section headers */
+        .section-header {
+            border-bottom: 1px solid #4a5568; /* gray-700 */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #cbd5e0; /* gray-400 */
+            font-weight: 600;
+            font-size: 1.125rem; /* text-lg */
+        }
+        /* Base card style */
+        .base-card {
+            background-color: rgba(74, 85, 104, 0.3); /* gray-700 with opacity */
+            border: 1px solid #4a5568; /* gray-700 */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1.5rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            position: relative; /* For potential absolute positioning inside */
+        }
+        .base-card:hover {
+            border-color: #a78bfa; /* purple-400 */
+            background-color: rgba(74, 85, 104, 0.5);
+        }
+        /* Style for selected cards */
+        .selected-card {
+             border-color: #8b5cf6; /* purple-500 */
+             border-width: 2px;
+             background-color: rgba(139, 92, 246, 0.1); /* purple-500 with low opacity */
+        }
+
+        /* Style for the clickable info area within option cards */
+        .info-click-area {
+            /* Takes up most of the card, leaves space for input */
+            flex-grow: 1;
+        }
+
+        /* Style for the input container */
+        .input-container {
+            /* Position checkbox/radio */
+            margin-left: 1rem; /* Space between text and input */
+        }
+
+        /* Style for the hidden info panel */
+        .info-panel {
+            background-color: rgba(45, 55, 72, 0.9); /* gray-800 slightly transparent */
+            border: 1px solid #4a5568; /* gray-700 */
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1rem;
+            margin-top: 1rem;
+            /* Hidden by default, JS will toggle */
+        }
+    </style>
+</head>
+<body class="gradient-bg text-gray-200 min-h-screen p-4 md:p-8">
+
+    <div class="bg-gray-800 bg-opacity-80 backdrop-blur-lg rounded-xl shadow-2xl p-6 md:p-10 max-w-5xl w-full mx-auto border border-gray-700">
+
+        <h1 class="text-2xl md:text-3xl font-bold text-white mb-2 text-center">
+            Start Your <span class="text-purple-400">Vibe Guide</span>
+        </h1>
+        <p class="text-center text-gray-400 mb-8">First, tell us what kind of application you're building.</p>
+
+        <section id="app-type-selection" class="mb-10">
+            <h2 class="section-header text-center text-xl">Choose Your Application Type</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div id="type-web-app" class="base-card text-center app-type-card" data-target-section="web-app-options">
+                    <h3 class="text-xl font-semibold text-white mb-2">Web App</h3>
+                    <p class="text-gray-400 text-sm">Browser-based applications (SPAs, websites, etc.)</p>
+                </div>
+                <div id="type-cross-platform" class="base-card text-center app-type-card" data-target-section="cross-platform-options">
+                    <h3 class="text-xl font-semibold text-white mb-2">Cross-Platform App</h3>
+                    <p class="text-gray-400 text-sm">Mobile apps for Android & iOS from one codebase (React Native, Flutter)</p>
+                </div>
+                <div id="type-native-android" class="base-card text-center app-type-card" data-target-section="native-android-options">
+                     <h3 class="text-xl font-semibold text-white mb-2">Native Android App</h3>
+                    <p class="text-gray-400 text-sm">Specific app for Android devices (Kotlin/Java)</p>
+                </div>
+                <div id="type-native-ios" class="base-card text-center app-type-card" data-target-section="native-ios-options">
+                     <h3 class="text-xl font-semibold text-white mb-2">Native iOS App</h3>
+                    <p class="text-gray-400 text-sm">Specific app for iOS devices (Swift/Objective-C)</p>
+                </div>
+            </div>
+        </section>
+
+        <form id="tech-stack-form" class="space-y-8">
+
+            <div id="web-app-options" class="hidden space-y-8 tech-options-container">
+                <h2 class="text-2xl font-semibold text-center text-purple-300 border-t border-gray-700 pt-6">Web App Stack Configuration</h2>
+                <section>
+                    <h3 class="section-header">Frontend Framework</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="base-card option-card" data-info-target="react-info">
+                            <div class="flex items-center justify-between">
+                                <div class="info-click-area"> <span class="font-medium text-white">React</span>
+                                </div>
+                                <div class="input-container"> <input type="radio" id="frontend-react" name="frontend_web" value="react" class="form-radio h-5 w-5">
+                                </div>
+                            </div>
+                            <div id="react-info" class="info-panel hidden">
+                                <h4 class="font-semibold text-purple-300 mb-2">React Details</h4>
+                                <p class="text-sm mb-2">A JavaScript library for building user interfaces, focusing on component-based architecture.</p>
+                                <p class="text-sm mb-2"><strong>Use Cases:</strong> Single Page Applications (SPAs), complex dashboards, reusable UI components.</p>
+                                <p class="text-sm mb-2"><strong>Tutorials:</strong> <a href="#" class="text-blue-400 hover:underline">Official Docs</a>, <a href="#" class="text-blue-400 hover:underline">Egghead Course</a></p>
+                                <p class="text-sm mb-2"><strong>LLM Prompt Idea:</strong> "Explain the difference between state and props in React."</p>
+                                <p class="text-sm font-medium text-green-400"><strong>Recommended:</strong> Great ecosystem, large community, widely used in industry.</p>
+                            </div>
+                        </div>
+                        <div class="base-card option-card" data-info-target="vue-info">
+                             <div class="flex items-center justify-between">
+                                <div class="info-click-area">
+                                    <span class="font-medium text-white">Vue.js</span>
+                                </div>
+                                <div class="input-container">
+                                    <input type="radio" id="frontend-vue" name="frontend_web" value="vue" class="form-radio h-5 w-5">
+                                </div>
+                            </div>
+                             <div id="vue-info" class="info-panel hidden"> <h4 class="font-semibold text-purple-300 mb-2">Vue.js Details</h4>
+                                <p class="text-sm">Details about Vue...</p>
+                            </div>
+                        </div>
+                         </div>
+                </section>
+
+                <section>
+                    <h3 class="section-header">Styling Solution</h3>
+                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                         <div class="base-card option-card" data-info-target="tailwind-info">
+                             <div class="flex items-center justify-between">
+                                <div class="info-click-area">
+                                    <span class="font-medium text-white">Tailwind CSS</span>
+                                </div>
+                                <div class="input-container">
+                                    <input type="radio" id="styling-tailwind" name="styling_web" value="tailwind" class="form-radio h-5 w-5">
+                                </div>
+                            </div>
+                             <div id="tailwind-info" class="info-panel hidden"> <h4 class="font-semibold text-purple-300 mb-2">Tailwind CSS Details</h4>
+                                <p class="text-sm">Details about Tailwind...</p>
+                             </div>
+                         </div>
+                         </div>
+                </section>
+
+                <section>
+                     <h3 class="section-header">Backend Framework</h3>
+                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                         <div class="base-card option-card" data-info-target="node-info">
+                             <div class="flex items-center justify-between">
+                                <div class="info-click-area">
+                                    <span class="font-medium text-white">Node.js / Express</span>
+                                </div>
+                                <div class="input-container">
+                                     <input type="radio" id="backend-node" name="backend_web" value="node_express" class="form-radio h-5 w-5">
+                                </div>
+                            </div>
+                             <div id="node-info" class="info-panel hidden"> <h4 class="font-semibold text-purple-300 mb-2">Node.js / Express Details</h4>
+                                 <p class="text-sm">Details about Node/Express...</p>
+                             </div>
+                         </div>
+                          </div>
+                </section>
+                 </div>
+
+            <div id="cross-platform-options" class="hidden space-y-8 tech-options-container">
+                 <h2 class="text-2xl font-semibold text-center text-purple-300 border-t border-gray-700 pt-6">Cross-Platform App Stack Configuration</h2>
+                 <section>
+                    <h3 class="section-header">Framework</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="base-card option-card" data-info-target="rn-info">
+                             <div class="flex items-center justify-between">
+                                <div class="info-click-area">
+                                    <span class="font-medium text-white">React Native</span>
+                                </div>
+                                <div class="input-container">
+                                     <input type="radio" id="framework-rn" name="framework_cp" value="react_native" class="form-radio h-5 w-5">
+                                </div>
+                            </div>
+                             <div id="rn-info" class="info-panel hidden"> <h4 class="font-semibold text-purple-300 mb-2">React Native Details</h4>
+                                 <p class="text-sm">Build native mobile apps using React.</p>
+                                 <p class="text-sm font-medium text-green-400"><strong>Recommended:</strong> Leverages React knowledge, large community.</p>
+                             </div>
+                        </div>
+                        <div class="base-card option-card" data-info-target="flutter-info">
+                             <div class="flex items-center justify-between">
+                                <div class="info-click-area">
+                                    <span class="font-medium text-white">Flutter</span>
+                                </div>
+                                <div class="input-container">
+                                     <input type="radio" id="framework-flutter" name="framework_cp" value="flutter" class="form-radio h-5 w-5">
+                                </div>
+                            </div>
+                             <div id="flutter-info" class="info-panel hidden"> <h4 class="font-semibold text-purple-300 mb-2">Flutter Details</h4>
+                                 <p class="text-sm">Google's UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.</p>
+                                 <p class="text-sm font-medium text-green-400"><strong>Recommended:</strong> Excellent performance, expressive UI, growing community.</p>
+                             </div>
+                        </div>
+                    </div>
+                 </section>
+                 </div>
+
+            <div id="native-android-options" class="hidden space-y-8 tech-options-container">
+                 <h2 class="text-2xl font-semibold text-center text-purple-300 border-t border-gray-700 pt-6">Native Android App Stack Configuration</h2>
+                 <section>
+                    <h3 class="section-header">Primary Language</h3>
+                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                         <div class="base-card option-card" data-info-target="kotlin-info">
+                             <div class="flex items-center justify-between">
+                                <div class="info-click-area">
+                                    <span class="font-medium text-white">Kotlin</span>
+                                </div>
+                                <div class="input-container">
+                                     <input type="radio" id="language-kotlin" name="language_android" value="kotlin" class="form-radio h-5 w-5">
+                                </div>
+                            </div>
+                             <div id="kotlin-info" class="info-panel hidden"> <h4 class="font-semibold text-purple-300 mb-2">Kotlin Details</h4>
+                                 <p class="text-sm">Modern, concise, and safe programming language.</p>
+                                 <p class="text-sm font-medium text-green-400"><strong>Recommended:</strong> Google's preferred language for Android development.</p>
+                             </div>
+                         </div>
+                          <div class="base-card option-card" data-info-target="java-info">
+                             <div class="flex items-center justify-between">
+                                <div class="info-click-area">
+                                    <span class="font-medium text-white">Java</span>
+                                </div>
+                                <div class="input-container">
+                                     <input type="radio" id="language-java" name="language_android" value="java" class="form-radio h-5 w-5">
+                                </div>
+                            </div>
+                             <div id="java-info" class="info-panel hidden"> <h4 class="font-semibold text-purple-300 mb-2">Java Details</h4>
+                                 <p class="text-sm">Long-standing language for Android, very mature ecosystem.</p>
+                             </div>
+                         </div>
+                     </div>
+                 </section>
+                 </div>
+
+             <div id="native-ios-options" class="hidden space-y-8 tech-options-container">
+                 <h2 class="text-2xl font-semibold text-center text-purple-300 border-t border-gray-700 pt-6">Native iOS App Stack Configuration</h2>
+                 <section>
+                    <h3 class="section-header">Primary Language</h3>
+                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                         <div class="base-card option-card" data-info-target="swift-info">
+                             <div class="flex items-center justify-between">
+                                <div class="info-click-area">
+                                    <span class="font-medium text-white">Swift</span>
+                                </div>
+                                <div class="input-container">
+                                     <input type="radio" id="language-swift" name="language_ios" value="swift" class="form-radio h-5 w-5">
+                                </div>
+                            </div>
+                             <div id="swift-info" class="info-panel hidden"> <h4 class="font-semibold text-purple-300 mb-2">Swift Details</h4>
+                                 <p class="text-sm">Powerful and intuitive programming language for iOS, macOS, watchOS, tvOS.</p>
+                                 <p class="text-sm font-medium text-green-400"><strong>Recommended:</strong> Apple's modern language, safer and faster than Objective-C.</p>
+                             </div>
+                         </div>
+                          <div class="base-card option-card" data-info-target="objc-info">
+                             <div class="flex items-center justify-between">
+                                <div class="info-click-area">
+                                    <span class="font-medium text-white">Objective-C</span>
+                                </div>
+                                <div class="input-container">
+                                     <input type="radio" id="language-objc" name="language_ios" value="objective_c" class="form-radio h-5 w-5">
+                                </div>
+                            </div>
+                             <div id="objc-info" class="info-panel hidden"> <h4 class="font-semibold text-purple-300 mb-2">Objective-C Details</h4>
+                                 <p class="text-sm">Primary language before Swift, still used in legacy projects.</p>
+                             </div>
+                         </div>
+                     </div>
+                 </section>
+                 </div>
+
+
+            <div id="submit-button-container" class="pt-6 text-center hidden">
+                <button
+                    type="submit"
+                    class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                >
+                    Generate My Setup Guide &rarr;
+                </button>
+            </div>
+
+        </form>
+        </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const appTypeCards = document.querySelectorAll('.app-type-card');
+            const techOptionContainers = document.querySelectorAll('.tech-options-container');
+            const optionCards = document.querySelectorAll('.option-card'); // Tech stack option cards
+            const submitButtonContainer = document.getElementById('submit-button-container');
+            let selectedAppTypeCard = null; // Keep track of the selected app type card
+
+            // --- Step 0: Handle App Type Selection ---
+            appTypeCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const targetSectionId = card.dataset.targetSection;
+                    const targetSection = document.getElementById(targetSectionId);
+
+                    // Remove selection style from previously selected card
+                    if (selectedAppTypeCard) {
+                         selectedAppTypeCard.classList.remove('selected-card');
+                    }
+                     // Add selection style to current card
+                    card.classList.add('selected-card');
+                    selectedAppTypeCard = card; // Update selected card
+
+
+                    // Hide all tech option sections first
+                    techOptionContainers.forEach(container => {
+                        container.classList.add('hidden');
+                    });
+
+                    // Show the target section
+                    if (targetSection) {
+                        targetSection.classList.remove('hidden');
+                        // Also show the submit button container now
+                        if (submitButtonContainer) {
+                            submitButtonContainer.classList.remove('hidden');
+                        }
+                    } else {
+                         // Hide submit button if no valid section targeted
+                         if (submitButtonContainer) {
+                            submitButtonContainer.classList.add('hidden');
+                         }
+                    }
+
+                     // Reset selections within the newly shown section (optional)
+                     if(targetSection) {
+                        targetSection.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => input.checked = false);
+                        targetSection.querySelectorAll('.info-panel').forEach(panel => panel.classList.add('hidden'));
+                        targetSection.querySelectorAll('.option-card').forEach(optCard => optCard.classList.remove('selected-card')); // Remove selection style from tech cards
+                     }
+                });
+            });
+
+            // --- Step 1: Handle Tech Option Card Clicks (Info Toggle & Selection) ---
+            optionCards.forEach(card => {
+                const infoTargetId = card.dataset.infoTarget;
+                const infoPanel = document.getElementById(infoTargetId);
+                const clickableArea = card.querySelector('.info-click-area');
+                const inputElement = card.querySelector('input[type="radio"], input[type="checkbox"]');
+
+                // Click on the info area to toggle details
+                if (clickableArea && infoPanel) {
+                    clickableArea.addEventListener('click', (event) => {
+                        // Prevent click from bubbling up if needed, though maybe not necessary here
+                        // event.stopPropagation();
+                        infoPanel.classList.toggle('hidden');
+                    });
+                }
+
+                // Click on the input itself to mark the card as selected (visual)
+                if (inputElement) {
+                     inputElement.addEventListener('change', () => {
+                        // If it's a radio button, remove selection from siblings
+                        if (inputElement.type === 'radio') {
+                            const radioGroupName = inputElement.name;
+                            document.querySelectorAll(`input[name="${radioGroupName}"]`).forEach(radio => {
+                                radio.closest('.option-card')?.classList.remove('selected-card');
+                            });
+                        }
+
+                        // Add/remove selected style to the parent card based on check state
+                        if (inputElement.checked) {
+                             card.classList.add('selected-card');
+                             // Optional: Automatically close info panel on selection?
+                             // if (infoPanel) infoPanel.classList.add('hidden');
+                        } else {
+                             // This case is mainly for checkboxes
+                             card.classList.remove('selected-card');
+                        }
+
+                        // --- Add logic here to filter *further* sections based on this choice ---
+                        // Example: If React is selected, filter testing options.
+                        // This would involve more complex mapping and DOM manipulation.
+                        console.log(`Selected: ${inputElement.value}, Checked: ${inputElement.checked}`);
+                     });
+                }
+
+                 // Make clicking anywhere on the card (except the input itself maybe) toggle the info panel
+                 card.addEventListener('click', (event) => {
+                     // Only toggle info if the click wasn't directly on the input or its label
+                     if (infoPanel && event.target !== inputElement && !event.target.closest('label[for="' + inputElement?.id + '"]')) {
+                         infoPanel.classList.toggle('hidden');
+                     }
+                 });
+            });
+
+            // --- Form Submission Logic (Placeholder) ---
+            const form = document.getElementById('tech-stack-form');
+            if(form) {
+                form.addEventListener('submit', (event) => {
+                    event.preventDefault(); // Prevent actual form submission for now
+                    console.log('Form submitted (prevented)');
+                    // Gather selected data and proceed to next step (generating guide)
+                    // This would involve reading the state of all checked inputs.
+                    alert('Guide generation logic would run here!');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
+
