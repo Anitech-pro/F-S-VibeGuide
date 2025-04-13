@@ -1,5 +1,5 @@
-// Simple server test script
-const http = require('http');
+// Simple server test script using ES modules
+import http from 'http';
 
 const options = {
   hostname: 'localhost',

@@ -1,5 +1,5 @@
 // Test script to check page access and server status
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 const BASE_URL = 'http://localhost:5000';
 
