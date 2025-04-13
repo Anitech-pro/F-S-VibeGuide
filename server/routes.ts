@@ -3,6 +3,15 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Test endpoint
+  app.get("/api/test", (req, res) => {
+    res.status(200).json({
+      status: "ok",
+      message: "API is working correctly!",
+      timestamp: new Date().toISOString(),
+      server: "Full-Stack Vibe Guide Server"
+    });
+  });
   // Project routes
   app.post("/api/projects", async (req, res) => {
     try {

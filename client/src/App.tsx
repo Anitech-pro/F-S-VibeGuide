@@ -10,6 +10,8 @@ import InfraSelection from "@/pages/InfraSelection";
 import Summary from "@/pages/Summary";
 import AppContainer from "@/components/AppContainer";
 import { WizardProvider } from "@/context/WizardContext";
+import TestComponent from "./test-component";
+import AppTest from "./app-test";
 
 function Router() {
   return (
@@ -19,6 +21,8 @@ function Router() {
       <Route path="/backend" component={BackendSelection} />
       <Route path="/infrastructure" component={InfraSelection} />
       <Route path="/summary" component={Summary} />
+      <Route path="/test" component={TestComponent} />
+      <Route path="/app-test" component={AppTest} />
       <Route component={NotFound} />
     </Switch>
   );
