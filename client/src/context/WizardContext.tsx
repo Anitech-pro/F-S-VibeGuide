@@ -20,7 +20,7 @@ export interface ProjectConfig {
   hosting: Hosting;
 }
 
-export type WizardStep = "project-type" | "frontend" | "backend" | "infrastructure" | "summary";
+export type WizardStep = "project-type" | "frontend" | "backend" | "integration" | "infrastructure" | "summary";
 
 interface WizardContextType {
   currentStep: WizardStep;
@@ -66,7 +66,7 @@ export function WizardProvider({ children }: WizardProviderProps) {
     setProjectConfig(defaultProjectConfig);
   };
 
-  const stepOrder: WizardStep[] = ["project-type", "frontend", "backend", "infrastructure", "summary"];
+  const stepOrder: WizardStep[] = ["project-type", "frontend", "backend", "integration", "infrastructure", "summary"];
 
   const nextStep = () => {
     const currentIndex = stepOrder.indexOf(currentStep);

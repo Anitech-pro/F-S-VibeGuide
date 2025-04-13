@@ -13,6 +13,7 @@ import AppContainer from "@/components/AppContainer";
 import { WizardProvider } from "@/context/WizardContext";
 import TestComponent from "./test-component";
 import AppTest from "./app-test";
+import IntegrationPage from "@/pages/IntegrationPage"; // Assuming this component exists
 
 function Router() {
   return (
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/" component={WizardPage} />
       <Route path="/frontend" component={FrontendSelection} />
       <Route path="/backend" component={BackendSelection} />
+      <Route path="/integration" component={IntegrationPage} />
       <Route path="/infrastructure" component={InfraSelection} />
       <Route path="/summary" component={Summary} />
       <Route path="/action-plan" component={ActionPlanPage} />
