@@ -8,6 +8,7 @@ import FrontendSelection from "@/pages/FrontendSelection";
 import BackendSelection from "@/pages/BackendSelection";
 import InfraSelection from "@/pages/InfraSelection";
 import Summary from "@/pages/Summary";
+import ActionPlanPage from "@/pages/ActionPlanPage";
 import AppContainer from "@/components/AppContainer";
 import { WizardProvider } from "@/context/WizardContext";
 import TestComponent from "./test-component";
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/backend" component={BackendSelection} />
       <Route path="/infrastructure" component={InfraSelection} />
       <Route path="/summary" component={Summary} />
+      <Route path="/action-plan" component={ActionPlanPage} />
       <Route path="/test" component={TestComponent} />
       <Route path="/app-test" component={AppTest} />
       <Route component={NotFound} />
