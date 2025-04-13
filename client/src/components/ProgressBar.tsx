@@ -1,4 +1,6 @@
+
 import { useWizard, WizardStep } from "@/context/WizardContext";
+import React from 'react';
 
 interface StepIndicatorProps {
   step: number;
@@ -80,11 +82,10 @@ export default function ProgressBar() {
             />
             {index < steps.length - 1 && (
               <ProgressLine 
-                key={`line-${index}`}
                 progress={getProgressPercentage(index)}
               />
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>
